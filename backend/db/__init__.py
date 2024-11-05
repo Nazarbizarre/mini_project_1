@@ -1,5 +1,11 @@
+from datetime import datetime
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, DeclarativeBase, mapped_column, Mapped
+
+
+class PublishedMixin:
+    published_at: Mapped[datetime] = mapped_column(default=datetime.now())
 
 
 class Base(DeclarativeBase):
@@ -29,5 +35,4 @@ class AsyncDB:
             yield session
 
 
-
-from .models import User
+from .models import Author
