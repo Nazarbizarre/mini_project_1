@@ -1,2 +1,3 @@
-from .author import Author
-from .atricle import Article
+from .author import AuthorData
+from .atricle import ArticleData
+from .token import Token, TokenData

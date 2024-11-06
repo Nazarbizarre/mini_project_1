@@ -35,4 +35,4 @@ class AsyncDB:
             yield session
 
 
-from .models import Author
+from .models import Author, Article, Comment

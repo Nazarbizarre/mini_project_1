@@ -2,8 +2,10 @@ from typing import Optional
 from bcrypt import hashpw, gensalt
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
+from ..utils.hash_pwd import get_password_hash
 
-class Author(BaseModel):
+
+class AuthorData(BaseModel):
     name: str = Field(..., description="The name of the author")
     email: EmailStr = Field(..., description="The author's email adress")
     bio: Optional[str] = Field(..., description="A short biography of the author")
@@ -15,5 +17,4 @@ class Author(BaseModel):
 
     @field_validator("password")
     def hash_password(cls, value):
-        salt = gensalt()
-        return hashpw(value, salt)
+        return get_password_hash(value)

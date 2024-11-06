@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -10,7 +12,7 @@ class Article(Base, PublishedMixin):
     content: Mapped[str]
     author_id: Mapped[int] = mapped_column(ForeignKey("authors.id"))
     author: Mapped["Author"] = relationship(back_populates="articles")
-    tags: Mapped[list] = None
+    # tags: Mapped[List[str]] = None
 
 
 # title: str = Field()

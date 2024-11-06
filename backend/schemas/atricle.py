@@ -2,15 +2,15 @@ from pydantic import BaseModel, Field, field_validator, ValidationError
 
 from typing import Optional
 
-from author import Author
+from .author import AuthorData
 
 from datetime import datetime
 
 
-class Article(BaseModel):
+class ArticleData(BaseModel):
     title: str = Field(..., description="The title of the article")
     content: str = Field(..., description="The main content of the article")
-    author: Author = Field(..., description="The author of the article")
+    author: AuthorData = Field(..., description="The author of the article")
     tags: Optional[list] = Field(
         None, description="List of tags related to the article"
     )

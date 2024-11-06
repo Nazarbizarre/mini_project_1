@@ -10,5 +10,6 @@ class Author(Base, PublishedMixin):
     name: Mapped[str]
     email: Mapped[str]
     bio: Mapped[str]
-    hashed_password: Mapped[str]
+    password: Mapped[str]
     articles: Mapped[List["Article"]] = relationship(back_populates="author")
+    comments: Mapped[List["Comment"]] = relationship(back_populates="author")
