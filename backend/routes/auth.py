@@ -9,9 +9,12 @@ from fastapi.security import OAuth2PasswordRequestForm
 from ..schemas import Token, AuthorData
 from ..utils import authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
 from ..db import AsyncDB, Author, Role
+from ..logging.loggers import log_program_start, log_program_stop
+from ..logging.middleware import request_logging_dependency
 
 
-auth_router = APIRouter(prefix="/auth", tags=["auth"])
+
+auth_router = APIRouter(prefix="/auth", tags=["auth"], dependencies=[Depends(request_logging_dependency)])
 
 
 @auth_router.post("/token")

@@ -7,9 +7,12 @@ from fastapi import APIRouter, status, Depends, HTTPException
 from ..schemas import ArticleData, ArticleRequest
 from ..utils import OAUTH2_SCHEME, get_current_user
 from ..db import Article, AsyncDB, Author
+from ..logging.loggers import log_program_start, log_program_stop
+from ..logging.middleware import request_logging_dependency
 
 
-article_router = APIRouter(prefix="/article", tags=["articles"])
+
+article_router = APIRouter(prefix="/article", tags=["articles"], dependencies=[Depends(request_logging_dependency)])
 
 
 @article_router.post("/", status_code=status.HTTP_201_CREATED)

@@ -2,6 +2,7 @@ from typing import Optional
 from bcrypt import hashpw, gensalt
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
+from ..logging.loggers import validations_logger
 from ..utils.hash_pwd import get_password_hash
 
 
@@ -17,4 +18,5 @@ class AuthorData(BaseModel):
 
     @field_validator("password")
     def hash_password(cls, value):
+        validations_logger.info("Model: AuthorData, Field: password, Result: Hash Created")
         return get_password_hash(value)

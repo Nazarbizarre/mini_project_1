@@ -6,9 +6,11 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from ..db import Author, AsyncDB, Role
 from ..utils import get_current_user
+from ..logging.loggers import log_program_start, log_program_stop
+from ..logging.middleware import request_logging_dependency
 
 
-admin_router = APIRouter(prefix="/admin", tags=["admin"])
+admin_router = APIRouter(prefix="/admin", tags=["admin"], dependencies=[Depends(request_logging_dependency)])
 
 
 @admin_router.put("/grant_admin/{user_id}")
