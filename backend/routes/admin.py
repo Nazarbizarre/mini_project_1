@@ -11,7 +11,7 @@ from ..utils import get_current_user
 admin_router = APIRouter(prefix="/admin", tags=["admin"])
 
 
-@admin_router.put("/grant_admin/{user_id}")
+@admin_router.put("/grant_admin/{user_id}", summary = "Set admin", description = "Set admin role for user")
 async def grant_admin(
     user_id: int,
     current_user: Annotated[Author, Depends(get_current_user)],

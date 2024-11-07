@@ -14,7 +14,7 @@ from ..db import AsyncDB, Author, Role
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@auth_router.post("/token")
+@auth_router.post("/token", summary = "Get token", description = "Return user access token and token type")
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     session: Annotated[Session, Depends(AsyncDB.get_session)],
@@ -33,7 +33,7 @@ async def login_for_access_token(
     return Token(access_token=access_token, token_type="bearer")
 
 
-@auth_router.post("/register", status_code=status.HTTP_201_CREATED)
+@auth_router.post("/register", status_code=status.HTTP_201_CREATED, summary = "Register", description = "register user")
 async def register_user(
     data: AuthorData, session: Annotated[Session, Depends(AsyncDB.get_session)]
 ):
