@@ -12,11 +12,4 @@ class Article(Base, PublishedMixin):
     content: Mapped[str]
     author_id: Mapped[int] = mapped_column(ForeignKey("authors.id"))
     author: Mapped["Author"] = relationship(back_populates="articles")
-    # tags: Mapped[List[str]] = None
-
-
-# title: str = Field()
-#     content: str = Field()
-#     author: Author = Field()
-#     tags: Optional[list] = None
-#     published_at: Optional[datetime] = datetime.now
+    tags: Mapped[str] = mapped_column(default=[])

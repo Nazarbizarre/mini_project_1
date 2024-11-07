@@ -8,7 +8,7 @@ from ..db import Author, AsyncDB, Role
 from ..utils import get_current_user
 
 
-admin_router = APIRouter(prefix="/admin")
+admin_router = APIRouter(prefix="/admin", tags=["admin"])
 
 
 @admin_router.put("/grant_admin/{user_id}")

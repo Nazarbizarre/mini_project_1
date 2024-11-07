@@ -11,7 +11,7 @@ from ..utils import authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_
 from ..db import AsyncDB, Author, Role
 
 
-auth_router = APIRouter(prefix="/auth")
+auth_router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @auth_router.post("/token")
