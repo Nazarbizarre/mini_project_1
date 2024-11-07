@@ -1,3 +1,4 @@
+
 from typing import Optional
 from bcrypt import hashpw, gensalt
 from pydantic import BaseModel, EmailStr, Field, field_validator
