@@ -2,17 +2,36 @@ from os import getenv
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, APIRouter
-import atexit
+from contextlib import asynccontextmanager
+import signal
+import asyncio
 
 from .routes import article_router, auth_router, admin_router
-
-
 from .logging.loggers import log_program_start, log_program_stop
 
-app = FastAPI()
+shutdown_reason = None
 
-log_program_start()
-atexit.register(log_program_stop)
+def signal_handler(sig, frame):
+    global shutdown_reason
+    if sig == signal.SIGINT:
+        shutdown_reason = "Interrupted by User"
+    elif sig == signal.SIGTERM:
+        shutdown_reason = "Terminated by Server"
+    log_program_stop(reason=shutdown_reason)
+
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTERM, signal_handler)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    log_program_start()
+    yield
+    
+
+
+app = FastAPI(lifespan=lifespan)
+
 
 
 api_router = APIRouter(prefix="/api")
