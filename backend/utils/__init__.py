@@ -5,5 +5,6 @@ from .oauth2 import (
     ACCESS_TOKEN_EXPIRE_MINUTES,
     SECRET_KEY,
     ALGORITHM,
+    get_current_user,
 )
 from .hash_pwd import PWD_CONTEXT, get_password_hash, verify_password

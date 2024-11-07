@@ -28,6 +28,11 @@ class AsyncDB:
     def migrate(cls):
         Base.metadata.drop_all(cls.ENGINE)
         Base.metadata.create_all(cls.ENGINE)
+        with cls.SESSION.begin() as session:
+            admin_role = Role(name="admin")
+            user_role = Role(name="default_user")
+            session.add(admin_role)
+            session.add(user_role)
 
     @classmethod
     def get_session(cls):
@@ -35,4 +40,4 @@ class AsyncDB:
             yield session
 
 
-from .models import Author, Article, Comment
+from .models import Author, Article, Comment, Role

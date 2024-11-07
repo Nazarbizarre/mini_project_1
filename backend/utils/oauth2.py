@@ -64,7 +64,8 @@ async def get_current_user(
         token_data = TokenData(username=username)
     except InvalidTokenError:
         raise credentials_exception
-    user = session.get(Author, token_data.username)
+    print(token_data.username)
+    user = session.scalar(select(Author).where(Author.name == token_data.username))
     if user is None:
         raise credentials_exception
     return user

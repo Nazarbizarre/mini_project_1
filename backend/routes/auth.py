@@ -1,13 +1,14 @@
 from typing import Annotated
 from datetime import timedelta
 
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 
 from ..schemas import Token, AuthorData
 from ..utils import authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
-from ..db import AsyncDB, Author
+from ..db import AsyncDB, Author, Role
 
 
 auth_router = APIRouter(prefix="/auth")
@@ -36,6 +37,10 @@ async def login_for_access_token(
 async def register_user(
     data: AuthorData, session: Annotated[Session, Depends(AsyncDB.get_session)]
 ):
-    user = Author(**data.model_dump())
+    user = session.scalar(select(Author).where(Author.email == data.email))
+    if user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    default_role = session.scalar(select(Role).where(Role.name == "default_user"))
+    user = Author(**data.model_dump(), role_id=default_role.id)
     session.add(user)
     return user
