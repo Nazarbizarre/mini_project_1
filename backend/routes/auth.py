@@ -16,6 +16,8 @@ from ..utils import (authenticate_user,
 from ..db import (AsyncDB,
                   Author,
                   Role)
+from ..loggers.middleware import request_logging_dependency
+
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 

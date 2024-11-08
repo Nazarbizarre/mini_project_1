@@ -7,6 +7,7 @@ from pydantic import (BaseModel,
                       ValidationError)
 
 from .author import AuthorData
+from ..loggers.loggers import validations_logger
 
 
 
@@ -24,5 +25,7 @@ class ArticleData(BaseModel):
     @field_validator("published_at")
     def future_check(cls, date):
         if date > datetime.now():
-            raise ValueError("Publishing date cannot be in the future")
+            validations_logger.info("Model: ArticleData, Field: published_at, Result: Failed (date in future)")
+            return ValueError("Publishing date cannot be in the future")
+        validations_logger.info("Model: ArticleData, Field: published_at, Result: Success")
         return date

@@ -10,6 +10,7 @@ from ..db import (Author,
                   AsyncDB,
                   Role)
 from ..utils import get_current_user
+from ..loggers.middleware import request_logging_dependency
 
 
 admin_router = APIRouter(prefix="/admin", tags=["admin"])

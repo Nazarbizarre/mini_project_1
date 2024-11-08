@@ -7,6 +7,7 @@ from pydantic import (BaseModel,
                       Field,
                       field_validator)
 from ..utils.hash_pwd import get_password_hash
+from ..loggers.loggers import validations_logger
 
 
 class AuthorData(BaseModel):
@@ -21,4 +22,5 @@ class AuthorData(BaseModel):
 
     @field_validator("password")
     def hash_password(cls, value):
+        validations_logger.info("Model: AuthorData, Field: password, Result: Hash Created")
         return get_password_hash(value)

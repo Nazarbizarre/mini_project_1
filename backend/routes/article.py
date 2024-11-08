@@ -15,9 +15,10 @@ from ..utils import (OAUTH2_SCHEME,
 from ..db import (Article,
                   AsyncDB,
                   Author)
+from ..loggers.middleware import request_logging_dependency
 
 
-article_router = APIRouter(prefix="/article", tags=["articles"])
+article_router = APIRouter(prefix="/article", tags=["articles"], dependencies=[Depends(request_logging_dependency)])
 
 
 @article_router.post("/", status_code=status.HTTP_201_CREATED, summary = "Crete new article", description = "Create mew article (ArticleData schema)")
@@ -82,7 +83,7 @@ async def delete_article(
 
 
 
-@article_router.put("/edit", summary = "Edit article", description = "Delete user own article by id")
+@article_router.put("/edit", summary = "Edit article", description = "Edit user own article by id")
 async def edit_article(
     article_id: int,
     data: ArticleData,
