@@ -3,13 +3,19 @@ from datetime import timedelta
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import (APIRouter,
+                     Depends,
+                     HTTPException,
+                     status)
 from fastapi.security import OAuth2PasswordRequestForm
 
 from ..schemas import Token, AuthorData
-from ..utils import authenticate_user, create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
-from ..db import AsyncDB, Author, Role
-
+from ..utils import (authenticate_user,
+                     create_access_token,
+                     ACCESS_TOKEN_EXPIRE_MINUTES)
+from ..db import (AsyncDB,
+                  Author,
+                  Role)
 
 auth_router = APIRouter(prefix="/auth", tags=["auth"])
 

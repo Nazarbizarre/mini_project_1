@@ -1,12 +1,20 @@
 from typing import Annotated, List
 
-from sqlalchemy import select, update
+from sqlalchemy import (select,
+                        update)
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, status, Depends, HTTPException
-
-from ..schemas import ArticleData, ArticleRequest
-from ..utils import OAUTH2_SCHEME, get_current_user
-from ..db import Article, AsyncDB, Author
+from fastapi import (APIRouter,
+                     status,
+                     Depends,
+                     HTTPException
+)
+from ..schemas import (ArticleData,
+                       ArticleRequest)
+from ..utils import (OAUTH2_SCHEME,
+                     get_current_user)
+from ..db import (Article,
+                  AsyncDB,
+                  Author)
 
 
 article_router = APIRouter(prefix="/article", tags=["articles"])

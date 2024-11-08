@@ -1,8 +1,11 @@
-
 from typing import Optional
-from bcrypt import hashpw, gensalt
-from pydantic import BaseModel, EmailStr, Field, field_validator
 
+from bcrypt import (hashpw,
+                    gensalt)
+from pydantic import (BaseModel,
+                      EmailStr,
+                      Field,
+                      field_validator)
 from ..utils.hash_pwd import get_password_hash
 
 

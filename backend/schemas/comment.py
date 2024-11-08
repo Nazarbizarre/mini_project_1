@@ -1,10 +1,13 @@
-from pydantic import BaseModel, Field, ValidationError, field_validator
-
 from typing import Optional
+from datetime import datetime
+
+from pydantic import (BaseModel,
+                      Field,
+                      ValidationError,
+                      field_validator)
 
 from author import Author
 
-from datetime import datetime
 
 
 class Comment(BaseModel):

@@ -2,9 +2,13 @@ from typing import Annotated
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import (APIRouter,
+                     Depends,
+                     HTTPException)
 
-from ..db import Author, AsyncDB, Role
+from ..db import (Author,
+                  AsyncDB,
+                  Role)
 from ..utils import get_current_user
 
 

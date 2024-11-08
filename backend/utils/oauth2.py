@@ -1,16 +1,21 @@
 from os import getenv
 from typing import Annotated
-from datetime import timedelta, datetime, timezone
+from datetime import (timedelta,
+                      datetime,
+                      timezone)
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from fastapi import Depends, HTTPException, status
+from fastapi import (Depends,
+                     HTTPException,
+                     status)
 from fastapi.security import OAuth2PasswordBearer
 from dotenv import load_dotenv
 import jwt
 from jwt.exceptions import InvalidTokenError
 
-from ..db import AsyncDB, Author
+from ..db import (AsyncDB,
+                  Author)
 from .hash_pwd import verify_password
 from ..schemas.token import TokenData
 
